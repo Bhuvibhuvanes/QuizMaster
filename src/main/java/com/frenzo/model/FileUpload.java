@@ -1,5 +1,7 @@
 package com.frenzo.model;
 
+import com.frenzo.questions.Question;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,9 +29,9 @@ public class FileUpload {
 
     private String filePath;
 
-//    @ManyToOne
-//    @JoinColumn(name = "question_id", nullable = false)
-//    private Question question;
+    @ManyToOne
+    @JoinColumn(name = "question_id", nullable = false)
+    private Question question;
 
     private boolean extract = false;
 

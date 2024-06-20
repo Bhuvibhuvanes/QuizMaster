@@ -9,7 +9,8 @@ import com.frenzo.Exception.NotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/question-papers")
+@RequestMapping("/question-papers")//799b2588e92449e983401f533e9337e7 //id
+//b28554b39f0b4a73aca92f8baa546e89  //secreate 
 public class QuestionPaperController {
     @Autowired
     QuestionPaperService questionPaperService;

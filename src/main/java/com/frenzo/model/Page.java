@@ -2,6 +2,8 @@ package com.frenzo.model;
 
 import java.time.LocalDateTime;
 
+import com.frenzo.entity.UserInfo;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,9 +32,9 @@ public class Page {
 
     private String contents;
 
-//    @ManyToOne
-//    @JoinColumn(name = "creator_id", nullable = false)
-//    private User creator;
+    @ManyToOne
+    @JoinColumn(name = "creator_id", nullable = false)
+    private UserInfo creator;
 
     private boolean active;
 }

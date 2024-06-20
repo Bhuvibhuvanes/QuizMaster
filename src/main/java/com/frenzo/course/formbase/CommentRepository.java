@@ -1,12 +1,12 @@
-//package com.frenzo.course.formbase;
+package com.frenzo.course.formbase;
 
 
-//import org.springframework.data.jpa.repository.JpaRepository;
-//import org.springframework.stereotype.Repository;
-//
-//@Repository
-//public interface CommentRepository  extends JpaRepository<Comment, Integer>{
-//
-//}
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CommentRepository  extends JpaRepository<Comment, Integer>{
+
+}
 
 

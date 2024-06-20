@@ -1,8 +1,12 @@
 package com.frenzo.questions;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.frenzo.entity.UserInfo;
+import com.frenzo.question.testcase.TestCase;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
@@ -57,9 +61,9 @@ public class Question {
 	@Lob
 	private String snippet;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserInfo user;
 
 	private boolean partialGrading = false;
 
@@ -70,6 +74,6 @@ public class Question {
 	@Lob
 	private String solution;
 
-//    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<TestCase> testCases = new ArrayList<>();
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TestCase> testCases = new ArrayList<>();
 }

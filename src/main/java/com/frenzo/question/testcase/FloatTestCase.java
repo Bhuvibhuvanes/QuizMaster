@@ -3,6 +3,7 @@ package com.frenzo.question.testcase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-@PrimaryKeyJoinColumn(name = "id")
+//@PrimaryKeyJoinColumn(name = "id")
+//@Table(name="floattestcase")
 public class FloatTestCase extends TestCase {
 
     @Column(name = "correct", columnDefinition = "FLOAT")

@@ -41,7 +41,6 @@ public class TableOfContents {
     @Column(name = "content", nullable = false)
     private int content;
 
-    // Assuming you have defined TocContentEntity as a superclass for Topic, GradedQuiz, Exercise, and Poll entities
 //    @ManyToOne
 //    @JoinColumn(name = "content_id", nullable = false)
 //    private TocContentEntity contentObject;

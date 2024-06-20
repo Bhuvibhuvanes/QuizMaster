@@ -2,6 +2,10 @@ package com.frenzo.question.testcase;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,15 +17,35 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-@PrimaryKeyJoinColumn(name = "id")
 public class HookTestCase extends TestCase {
 
-    @Column(name = "hook_code", columnDefinition = "TEXT")
-    private String hookCode;
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-    @Column(name = "weight", columnDefinition = "FLOAT DEFAULT 1.0")
-    private Float weight;
+    @Lob
+    @Column(nullable = false)
+    private String hookCode = "def check_answer(user_answer):\n" +
+            "    ''' Evaluates user answer to return -\n" +
+            "    success - Boolean, indicating if code was executed correctly\n" +
+            "    mark_fraction - Float, indicating fraction of the\n" +
+            "                   weight to a test case\n" +
+            "    error - String, error message if success is false\n" +
+            "\n" +
+            "    In case of assignment upload there will be no user answer '''\n" +
+            "\n" +
+            "    success = False\n" +
+            "    err = \"Incorrect Answer\" # Please make this more specific\n" +
+            "    mark_fraction = 0.0\n" +
+            "\n" +
+            "    # write your code here\n" +
+            "\n" +
+            "    return success, err, mark_fraction";
 
-    @Column(name = "hidden", columnDefinition = "BOOLEAN DEFAULT false")
-    private boolean hidden;
+    @Column(nullable = false)
+    private float weight = 1.0f;
+
+    @Column(nullable = false)
+    private boolean hidden = false;
+
 }

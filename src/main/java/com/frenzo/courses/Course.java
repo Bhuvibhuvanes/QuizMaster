@@ -51,7 +51,7 @@ public class Course {
     @JoinTable(
         name = "course_students",
         joinColumns = @JoinColumn(name = "course_id"),
-        inverseJoinColumns = @JoinColumn(name = "student_id")
+        inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<UserInfo> students = new ArrayList<>();
 
@@ -59,7 +59,7 @@ public class Course {
     @JoinTable(
         name = "course_requests",
         joinColumns = @JoinColumn(name = "course_id"),
-        inverseJoinColumns = @JoinColumn(name = "request_id")
+        inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<UserInfo> requests = new ArrayList<>();
 
@@ -77,7 +77,7 @@ public class Course {
     @JoinTable(
         name = "course_teachers",
         joinColumns = @JoinColumn(name = "course_id"),
-        inverseJoinColumns = @JoinColumn(name = "teacher_id")
+        inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<UserInfo> teachers = new ArrayList<>();
 
