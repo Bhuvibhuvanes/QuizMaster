@@ -29,12 +29,12 @@ import com.frenzo.filter.JwtAuthFilter;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-    @Autowired
-    private JwtAuthFilter authFilter;
+	@Autowired
+	private JwtAuthFilter authFilter;
 
-    @Bean
-    //authentication
-    public UserDetailsService userDetailsService() {
+	@Bean
+	// authentication
+	public UserDetailsService userDetailsService() {
 //        UserDetails admin = User.withUsername("Basant")
 //                .password(encoder.encode("Pwd1"))
 //                .roles("ADMIN")
@@ -44,43 +44,47 @@ public class SecurityConfig {
 //                .roles("USER","ADMIN","HR")
 //                .build();
 //        return new InMemoryUserDetailsManager(admin, user);
-        return new UserInfoUserDetailsService();
-    }
+		return new UserInfoUserDetailsService();
+	}
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST,"/products/new","/products/authenticate").permitAll()
-                .requestMatchers(HttpMethod.GET,"/products/all").permitAll()
-                .requestMatchers(HttpMethod.GET,"/products/welcome").permitAll()
-                .requestMatchers(HttpMethod.POST,"/lessons").permitAll()
-                .and()
-                .authorizeHttpRequests().requestMatchers("/products/**")
-                .authenticated().and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authenticationProvider(authenticationProvider())
-                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//		return http.csrf().disable().authorizeHttpRequests()
+//				.requestMatchers(HttpMethod.POST, "/products/new", "/products/authenticate").permitAll()
+//				.requestMatchers(HttpMethod.GET, "/products/all").permitAll()
+//				.requestMatchers(HttpMethod.GET, "/products/welcome").permitAll()
+//				.requestMatchers(HttpMethod.POST, "/lessons").permitAll().and().authorizeHttpRequests()
+//				.requestMatchers("/products/**").authenticated().and().sessionManagement()
+//				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//				.authenticationProvider(authenticationProvider())
+//				.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).build();
+//	}
+		return http.csrf().disable().cors().and().authorizeHttpRequests()
+				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+				.requestMatchers(HttpMethod.POST, "/login").permitAll().anyRequest().permitAll()// Require
+																								// authentication for
+																								// POST
+				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.authenticationProvider(authenticationProvider())
+				.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).build();
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService());
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
-        return authenticationProvider;
-    }
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+		authenticationProvider.setUserDetailsService(userDetailsService());
+		authenticationProvider.setPasswordEncoder(passwordEncoder());
+		return authenticationProvider;
+	}
+
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+		return config.getAuthenticationManager();
+	}
 
 }
